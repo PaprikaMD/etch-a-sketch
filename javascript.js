@@ -1,11 +1,11 @@
 function main(){
     generateGrid('#grid', 16);
-    const squares = document.querySelectorAll('.square');
-    squares.forEach((square) => {
-        square.addEventListener('mouseover', () => square.style.backgroundColor = 'white')
-    })
     const button = document.querySelector('button');
-    button.addEventListener('click', () => prompt('Grid size'));
+    button.addEventListener('click', () => {
+        let newSize = prompt('Enter grid size');
+        if (newSize > 100) alert('Size must be 100 or below')
+        else resetGrid(newSize);
+    });
 
 }
 
@@ -23,10 +23,17 @@ function generateGrid(elementName, size){
         }
         element.appendChild(newElement);
     }
+    const squares = document.querySelectorAll('.square');
+    squares.forEach((square) => {
+        square.addEventListener('mouseover', () => square.style.backgroundColor = 'white')
+    })
 }
 
 function resetGrid(size){
-
+    const grid = document.querySelector('#grid');
+    const columns = document.querySelectorAll('.column');
+    columns.forEach(column => grid.removeChild(column));
+    generateGrid('#grid', size)
 }
 
 
